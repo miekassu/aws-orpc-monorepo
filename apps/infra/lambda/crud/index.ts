@@ -1,13 +1,15 @@
-import util from 'util'
-import stream from 'stream'
+import { APIGatewayProxyEventV2 } from 'aws-lambda'
 
-const { Readable } = stream
-const pipeline = util.promisify(stream.pipeline)
+export const handler = async (event: APIGatewayProxyEventV2) => {
+  console.log('Received event:', JSON.stringify(event, null, 2))
 
-/* global awslambda */
-export const handler = awslambda.streamifyResponse(
-  async (event, responseStream) => {
-    const requestStream = Readable.from(Buffer.from(JSON.stringify(event)))
-    await pipeline(requestStream, responseStream)
+  // Example response
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: 'Hello from the CRUD Lambda function!',
+      input: event,
+    }),
   }
-)
+}
+ 

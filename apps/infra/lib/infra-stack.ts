@@ -70,6 +70,7 @@ export class InfraStack extends Stack {
     // Lambda streamer only works via function URL
     const streamingUrl = this.streamingFunction.addFunctionUrl({
       authType: aws_lambda.FunctionUrlAuthType.NONE,
+      invokeMode: aws_lambda.InvokeMode.RESPONSE_STREAM,
     })
 
     // API Gateway HTTP API
@@ -90,12 +91,6 @@ export class InfraStack extends Stack {
         this.crudFunction
       )
 
-    const streamingIntegration =
-      new aws_apigatewayv2_integrations.HttpUrlIntegration(
-        'StreamingIntegration',
-        streamingUrl.url
-      )
-
     // API Routes
     this.api.addRoutes({
       path: '/api/rpc/{proxy+}',
@@ -103,15 +98,14 @@ export class InfraStack extends Stack {
       integration: crudIntegration,
     })
 
-    this.api.addRoutes({
-      path: '/api/stream/{proxy+}',
-      methods: [aws_apigatewayv2.HttpMethod.POST],
-      integration: streamingIntegration,
-    })
-
     new CfnOutput(this, 'ApiEndpoint', {
       value: this.api.apiEndpoint,
       description: 'oRPC API Gateway endpoint',
+    })
+
+    new CfnOutput(this, 'StreamingEndpoint', {
+      value: streamingUrl.url,
+      description: 'Streaming Lambda function URL',
     })
   }
 }
