@@ -13,6 +13,9 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@repo/service-core": "workspace:*",
+    "@repo/shared-contracts": "workspace:*",
+    "@orpc/server": "latest",
     "@types/aws-lambda": "^8.10.149",
     "@types/node": "22.7.9",
     "aws-cdk": "2.1018.1",
