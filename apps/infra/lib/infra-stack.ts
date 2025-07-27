@@ -13,7 +13,6 @@ import { Construct } from 'constructs'
 export class InfraStack extends Stack {
   public readonly postsTable: aws_dynamodb.TableV2
   public readonly orpcHandler: aws_lambda_nodejs.NodejsFunction
-  public readonly streamingFunction: aws_lambda_nodejs.NodejsFunction
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
@@ -50,10 +49,9 @@ export class InfraStack extends Stack {
 
     // Grant DynamoDB permissions
     this.postsTable.grantReadWriteData(this.orpcHandler)
-    this.postsTable.grantReadData(this.streamingFunction)
 
     // oRPC only works via function URL
-    const oRPCEndpoint = this.streamingFunction.addFunctionUrl({
+    const oRPCEndpoint = this.orpcHandler.addFunctionUrl({
       authType: aws_lambda.FunctionUrlAuthType.NONE,
       invokeMode: aws_lambda.InvokeMode.RESPONSE_STREAM,
     })

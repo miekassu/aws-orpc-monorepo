@@ -11,12 +11,11 @@
     "lint": "eslint \"**/*.ts\""
   },
   "devDependencies": {
+    "@orpc/server": "latest",
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
     "@repo/service-core": "workspace:*",
     "@repo/shared-contracts": "workspace:*",
-    "@orpc/server": "latest",
-    "@types/aws-lambda": "^8.10.149",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "22.7.9",
     "aws-cdk": "2.1018.1",
     "eslint": "^8.57.0",
@@ -25,9 +24,11 @@
     "typescript": "5.6.3"
   },
   "dependencies": {
+    "@types/aws-lambda": "8.10.150",
     "aws-cdk-lib": "2.200.1",
     "constructs": "^10.0.0",
     "env-var": "^7.5.0",
-    "esbuild": "^0.25.5"
+    "esbuild": "^0.25.5",
+    "lambda-stream": "^0.6.0"
   }
 }
