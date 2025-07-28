@@ -1,9 +1,9 @@
 import { APIGatewayProxyEventV2 } from 'aws-lambda'
 import { streamifyResponse, ResponseStream } from 'lambda-stream'
 import { RPCHandler } from '@orpc/server/aws-lambda'
-import { postsRouter } from './router'
+import { mainRouter } from './router'
 
-const rpcHandler = new RPCHandler(postsRouter)
+const rpcHandler = new RPCHandler(mainRouter)
 
 /**
  * oRPC only supports [AWS Lambda response streaming](https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/).
