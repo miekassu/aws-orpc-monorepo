@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@orpc/contract": "^1.7.5",
     "@orpc/server": "latest",
     "@repo/shared-contracts": "workspace:*"
   },

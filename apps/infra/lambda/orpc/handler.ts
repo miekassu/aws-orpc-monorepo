@@ -1,8 +1,14 @@
-import { mainRouter } from '@repo/service-core';
+import { createMainRouter } from '@repo/service-core';
 import { APIGatewayProxyEventV2 } from 'aws-lambda'
 import { streamifyResponse, ResponseStream } from 'lambda-stream'
 import { RPCHandler } from '@orpc/server/aws-lambda'
 
+// Database definition (in Lambda)
+const database = {
+  posts: [{ id: '0', title: 'initialPost', description: 'description' }],
+};
+
+const mainRouter = createMainRouter(database);
 const rpcHandler = new RPCHandler(mainRouter)
 
 /**

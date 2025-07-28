@@ -139,6 +139,9 @@ importers:
 
   packages/service-core:
     dependencies:
+      '@orpc/contract':
+        specifier: ^1.7.5
+        version: 1.7.5
       '@orpc/server':
         specifier: latest
         version: 1.7.5

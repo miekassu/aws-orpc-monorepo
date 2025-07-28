@@ -1,17 +1,14 @@
 import { createProcedures } from '../procedures';
 import { contracts } from '@repo/shared-contracts';
+import type { InferContractRouterOutputs } from '@orpc/contract';
 
-const { base: postsBase, authed: postsAuthed } = createProcedures(contracts.posts);
+type PostsOutputs = InferContractRouterOutputs<typeof contracts.posts>;
+type Post = PostsOutputs['getPost'];
 
-export const database = {
-  posts: [{ id: '0', title: 'initialPost', description: 'description' }] as {
-    id: string;
-    title: string;
-    description: string;
-  }[],
-};
+export function createPostsRouter(database: { posts: Post[] }) {
+  const { base: postsBase, authed: postsAuthed } = createProcedures(contracts.posts);
 
-export const postsRouter = postsBase.router({
+  return postsBase.router({
   listPosts: postsBase.listPosts.handler(async () => {
     return database.posts;
   }),
@@ -45,4 +42,5 @@ export const postsRouter = postsBase.router({
     const deletedPost = database.posts.splice(index, 1)[0];
     return { id: deletedPost!.id };
   }),
-});
+  });
+}

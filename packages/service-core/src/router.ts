@@ -1,10 +1,16 @@
 import { implement } from '@orpc/server';
 import { contracts } from '@repo/shared-contracts';
-import { postsRouter } from './procedures/posts';
+import type { InferContractRouterOutputs } from '@orpc/contract';
+import { createPostsRouter } from './procedures/posts';
 
-const mainBase = implement(contracts);
+type PostsOutputs = InferContractRouterOutputs<typeof contracts.posts>;
+type Post = PostsOutputs['getPost'];
 
-// Main router with posts mounted under /posts
-export const mainRouter = mainBase.router({
-  posts: postsRouter,
-});
+export function createMainRouter(database: { posts: Post[] }) {
+  const mainBase = implement(contracts);
+  
+  // Main router with posts mounted under /posts
+  return mainBase.router({
+    posts: createPostsRouter(database),
+  });
+}
