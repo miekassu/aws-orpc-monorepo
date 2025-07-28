@@ -81,3 +81,7 @@ This monorepo demonstrates oRPC's contract-first approach for building type-safe
 ---
 
 _This is an experimental project exploring oRPC's capabilities in a serverless monorepo architecture._
+
+## Inspiration
+
+Inspired by [monorepo-boilerplate](https://github.com/InfiniteXyy/monorepo-boilerplate) by [@InfiniteXyy](https://github.com/InfiniteXyy) - thanks for the foundation!🙏
