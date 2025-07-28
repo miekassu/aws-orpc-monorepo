@@ -1,9 +1,7 @@
-import { createProcedures } from '@repo/service-core';
+import { createProcedures } from '../procedures';
 import { contracts } from '@repo/shared-contracts';
-import { implement } from '@orpc/server';
 
 const { base: postsBase, authed: postsAuthed } = createProcedures(contracts.posts);
-const mainBase = implement(contracts);
 
 export const database = {
   posts: [{ id: '0', title: 'initialPost', description: 'description' }] as {
@@ -13,7 +11,7 @@ export const database = {
   }[],
 };
 
-const postsRouter = postsBase.router({
+export const postsRouter = postsBase.router({
   listPosts: postsBase.listPosts.handler(async () => {
     return database.posts;
   }),
@@ -47,9 +45,4 @@ const postsRouter = postsBase.router({
     const deletedPost = database.posts.splice(index, 1)[0];
     return { id: deletedPost!.id };
   }),
-});
-
-// Main router with posts mounted under /posts
-export const mainRouter = mainBase.router({
-  posts: postsRouter,
 });
