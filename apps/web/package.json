@@ -10,7 +10,12 @@
     "lint": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
+    "@orpc/client": "^1.7.5",
+    "@orpc/contract": "^1.7.5",
+    "@orpc/react-query": "^1.7.5",
     "@repo/ui": "workspace:*",
+    "@repo/shared-contracts": "workspace:*",
+    "@tanstack/react-query": "^5.83.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
