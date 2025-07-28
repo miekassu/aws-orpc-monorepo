@@ -1,9 +1,5 @@
 import { useState } from 'react'
-import { useListPosts } from './api/useListPosts'
-import { useGetPost } from './api/useGetPost'
-import { useCreatePost } from './api/useCreatePost'
-import { useUpdatePost } from './api/useUpdatePost'
-import { useDeletePost } from './api/useDeletePost'
+import { useListPosts, useGetPost, useCreatePost, useUpdatePost, useDeletePost } from './api/posts'
 
 const App = () => {
   const [selectedPostId, setSelectedPostId] = useState<string>('')
