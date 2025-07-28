@@ -19,13 +19,13 @@ export function createPostsRouter(database: { posts: Post[] }) {
     }
     return result;
   }),
-  createPost: postsAuthed.createPost.handler(async ({ input }) => {
+  createPost: postsBase.createPost.handler(async ({ input }) => {
     const id = Math.random().toString(36).substring(7);
     const newPost = { id, ...input };
     database.posts.push(newPost);
     return newPost;
   }),
-  updatePost: postsAuthed.updatePost.handler(async ({ input }) => {
+  updatePost: postsBase.updatePost.handler(async ({ input }) => {
     const index = database.posts.findIndex((post) => post.id === input.id);
     if (index === -1) {
       throw new Error('Post not found');
@@ -34,7 +34,7 @@ export function createPostsRouter(database: { posts: Post[] }) {
     database.posts[index] = updatedPost;
     return updatedPost;
   }),
-  deletePost: postsAuthed.deletePost.handler(async ({ input }) => {
+  deletePost: postsBase.deletePost.handler(async ({ input }) => {
     const index = database.posts.findIndex((post) => post.id === input.id);
     if (index === -1) {
       throw new Error('Post not found');

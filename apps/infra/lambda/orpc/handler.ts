@@ -5,7 +5,11 @@ import { RPCHandler } from '@orpc/server/aws-lambda'
 
 // Database definition (in Lambda)
 const database = {
-  posts: [{ id: '0', title: 'initialPost', description: 'description' }],
+  posts: [
+    { id: '0', title: 'First Post', description: 'This is the first post' },
+    { id: '1', title: 'Second Post', description: 'This is the second post' },
+    { id: '2', title: 'Third Post', description: 'This is the third post' },
+  ],
 };
 
 const mainRouter = createMainRouter(database);

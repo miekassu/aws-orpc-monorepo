@@ -81,12 +81,16 @@ const App = () => {
                   >
                     View Details
                   </button>
-                  <button
-                    onClick={() => setEditPost(post)}
+                    <button
+                    onClick={() => setEditPost({
+                      id: post.id,
+                      title: post.title,
+                      description: post.description || ''
+                    })}
                     style={{ marginRight: '5px' }}
-                  >
+                    >
                     Edit
-                  </button>
+                    </button>
                   <button
                     onClick={() => handleDeletePost(post.id)}
                     disabled={deletePostMutation.isPending}
@@ -133,7 +137,6 @@ const App = () => {
             style={{
               marginTop: '10px',
               padding: '10px',
-              backgroundColor: '#f5f5f5',
               borderRadius: '4px',
             }}
           >
@@ -253,7 +256,6 @@ const App = () => {
         <div
           style={{
             padding: '10px',
-            backgroundColor: '#d4edda',
             color: '#155724',
             borderRadius: '4px',
             marginBottom: '10px',
@@ -266,7 +268,6 @@ const App = () => {
         <div
           style={{
             padding: '10px',
-            backgroundColor: '#d4edda',
             color: '#155724',
             borderRadius: '4px',
             marginBottom: '10px',
@@ -279,7 +280,6 @@ const App = () => {
         <div
           style={{
             padding: '10px',
-            backgroundColor: '#d4edda',
             color: '#155724',
             borderRadius: '4px',
             marginBottom: '10px',
