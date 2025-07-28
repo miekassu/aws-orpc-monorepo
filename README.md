@@ -1,32 +1,83 @@
-# `Turborepo` Vite starter
+# oRPC AWS Lambda Monorepo Experiment
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+> **Experimental** contract-first API development with oRPC, AWS Lambda, and React
 
-## Using this example
+This monorepo demonstrates oRPC's contract-first approach for building type-safe APIs with AWS Lambda deployment and React frontend integration.
 
-Run the following command:
+## Architecture Overview
 
-```sh
-npx create-turbo@latest -e with-vite-react
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   React Web     │◄──►│  AWS Lambda      │◄──►│  Service Core   │
+│   (Frontend)    │    │  (Infrastructure)│    │  (Business)     │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                        │                       │
+         ▼                        ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│ @orpc/tanstack- │    │   RPC Handler    │    │   Procedures    │
+│     query       │    │   AWS Adapter    │    │   & Routers     │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                                               │
+         └───────────────────┬───────────────────────────┘
+                             ▼
+                   ┌─────────────────┐
+                   │ Shared Contracts│
+                   │   (Schema)      │
+                   └─────────────────┘
 ```
 
-## What's inside?
+## Apps and Packages
 
-This Turborepo includes the following packages and apps:
+### Applications (`/apps`)
 
-### Apps and Packages
+- **`web`** - React + Vite frontend with oRPC integration
+  - Uses `@orpc/tanstack-query` for API calls
+  - Demonstrates full CRUD operations with "posts"
 
-- `web`: react [vite](https://vitejs.dev) ts app
-- `@repo/ui`: a stub component library shared by `web` application
-- `@repo/eslint-config`: shared `eslint` configurations
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- **`infra/lambda`** - AWS Lambda with CDK deployment
+  - Response streaming support for oRPC
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Packages (`/packages`)
 
-### Utilities
+- **`shared-contracts`** - oRPC contract definitions
+  - Zod schema validation
+  - Type-safe API contracts
+  - Single source of truth for API structure
 
-This Turborepo has some additional tools already setup for you:
+- **`service-core`** - Business logic and procedures
+  - Decoupled from infrastructure concerns
+  - Reusable across different deployment targets
+  - Dependency injection pattern
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- **`@repo/eslint-config`** - Shared ESLint configuration
+- **`@repo/typescript-config`** - Shared TypeScript configuration
+
+## Future Enhancement Possibilities
+
+### Infrastructure
+
+- [ ] **Database Integration**: Replace in-memory store with RDS/DynamoDB
+- [ ] **Authentication**: JWT/OAuth integration with auth middleware
+- [ ] **API Gateway**: Custom domain and rate limiting
+
+### Features
+
+- [ ] **Real-time Updates**: WebSocket support for live data
+- [ ] **File Uploads**: S3 integration for media handling
+
+### Developer Experience
+
+- [ ] **OpenAPI Generation**: Auto-generate REST docs from contracts
+
+## Tech Stack
+
+- **Frontend**: React + Vite + TanStack Query
+- **Backend**: oRPC + AWS Lambda + Node.js
+- **Schema**: Zod validation
+- **Deployment**: AWS CDK + Lambda with streaming
+- **Monorepo**: Turborepo + pnpm workspaces
+- **TypeScript**: End-to-end type safety
+
+---
+
+_This is an experimental project exploring oRPC's capabilities in a serverless monorepo architecture._
