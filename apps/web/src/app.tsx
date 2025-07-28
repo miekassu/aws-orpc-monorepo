@@ -1,5 +1,4 @@
 import typescriptLogo from '/typescript.svg'
-import { Header, Counter } from '@repo/ui'
 import { useListPosts } from './api/useListPosts'
 
 const App = () => {
@@ -21,12 +20,14 @@ const App = () => {
           alt="TypeScript logo"
         />
       </a>
-      <Header title="Web" />
+      <header id="header">
+        <h1>oRPC</h1>
+      </header>
       <div className="card">
-        <button onClick={() => refetch()}>HEY</button>
+        <button onClick={() => refetch()}>FETCH</button>
       </div>
       <div className="card">
-        <Counter />
+        {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
       </div>
     </div>
   )
