@@ -13,6 +13,7 @@
     "@orpc/client": "^1.7.5",
     "@orpc/contract": "^1.7.5",
     "@orpc/react-query": "^1.7.5",
+    "@orpc/tanstack-query": "^1.7.5",
     "@repo/shared-contracts": "workspace:*",
     "@tanstack/react-query": "^5.83.0",
     "react": "^18.2.0",
