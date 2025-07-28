@@ -14,6 +14,7 @@ export function createPostsRouter(database: { posts: Post[] }) {
     listPosts: postsBase.listPosts.handler(async () => {
       return database.posts
     }),
+    
     getPost: postsBase.getPost.handler(async ({ input }) => {
       const result = database.posts.find((post) => post.id === input.id)
       if (!result) {
@@ -21,12 +22,14 @@ export function createPostsRouter(database: { posts: Post[] }) {
       }
       return result
     }),
+    
     createPost: postsBase.createPost.handler(async ({ input }) => {
       const id = Math.random().toString(36).substring(7)
       const newPost = { id, ...input }
       database.posts.push(newPost)
       return newPost
     }),
+    
     updatePost: postsBase.updatePost.handler(async ({ input }) => {
       const index = database.posts.findIndex((post) => post.id === input.id)
       if (index === -1) {
@@ -36,6 +39,7 @@ export function createPostsRouter(database: { posts: Post[] }) {
       database.posts[index] = updatedPost
       return updatedPost
     }),
+    
     deletePost: postsBase.deletePost.handler(async ({ input }) => {
       const index = database.posts.findIndex((post) => post.id === input.id)
       if (index === -1) {
