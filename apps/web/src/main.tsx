@@ -1,25 +1,19 @@
-import { createRoot } from 'react-dom/client'
 import './style.css'
-import typescriptLogo from '/typescript.svg'
-import { Header, Counter } from '@repo/ui'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './app'
 
-const App = () => (
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" className="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img
-        src={typescriptLogo}
-        className="logo vanilla"
-        alt="TypeScript logo"
-      />
-    </a>
-    <Header title="Web" />
-    <div className="card">
-      <Counter />
-    </div>
-  </div>
+const container = document.getElementById('app')
+
+if (!container) {
+  throw new Error('No container found')
+}
+
+createRoot(container).render(
+  <StrictMode>
+    <QueryClientProvider client={new QueryClient()}>
+      <App />
+    </QueryClientProvider>
+  </StrictMode>
 )
-
-createRoot(document.getElementById('app')!).render(<App />)
