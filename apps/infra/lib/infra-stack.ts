@@ -54,6 +54,13 @@ export class InfraStack extends Stack {
     const oRPCEndpoint = this.orpcHandler.addFunctionUrl({
       authType: aws_lambda.FunctionUrlAuthType.NONE,
       invokeMode: aws_lambda.InvokeMode.RESPONSE_STREAM,
+      cors: {
+        allowedOrigins: ['*'],
+        allowedMethods: [
+          aws_lambda.HttpMethod.ALL
+        ],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+      }
     })
 
     new CfnOutput(this, 'ApiEndpoint', {
